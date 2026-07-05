@@ -10,4 +10,7 @@ for _ in range(1000):
     if terminated or truncated:
         observation, info = env.reset()
 
+    print("Estado:", observation.shape)
+    print("Acciones:", env.action_space.shape)
+
 env.close()
