@@ -95,3 +95,5 @@ for iteration in range(500):
         optimizer_critic.step()
 
     print(f"Iteration {iteration}, Mean Reward: {total_reward:.2f}")
+
+    torch.save(policy.state_dict(), "policy_weights.pth")
