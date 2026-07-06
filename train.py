@@ -16,6 +16,9 @@ optimizer_critic = torch.optim.Adam(critic.parameters(), lr=0.00003)
 
 observation, info = env.reset()
 
+all_rewards = []
+
+
 for iteration in range(500):
 
     states = []
@@ -24,7 +27,7 @@ for iteration in range(500):
     rewards = []
     dones = []
     values= []
-
+    
     for step in range(2048):
         state = torch.FloatTensor(observation)
         mean, std  = policy(state)
@@ -96,4 +99,13 @@ for iteration in range(500):
 
     print(f"Iteration {iteration}, Mean Reward: {total_reward:.2f}")
 
+    all_rewards.append(total_reward)
+
     torch.save(policy.state_dict(), "policy_weights.pth")
+
+plt.plot(all_rewards)
+plt.xlabel("Episode")
+plt.ylabel("Total Reward")
+plt.title("Cuadruped Learning Curve")
+plt.savefig("learning_curve.png")
+plt.show()
